@@ -21,7 +21,7 @@ namespace Dice_Tool.Converters
 
             int.TryParse(percentageString.Substring(0, percentageString.Length - 2),out percentage);
 
-            return percentage;
+            return percentage == 0 ? 180 : percentage;
         }
     }
 }
