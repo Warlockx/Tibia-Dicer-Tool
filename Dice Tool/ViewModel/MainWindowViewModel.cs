@@ -24,7 +24,7 @@ namespace Dice_Tool.ViewModel
             set
             {
                 currentPayout = value;
-                OnPropertyChanged("CurrentPayout");
+                OnPropertyChanged("CurrentPayout");              
             }
         }      
 
@@ -39,6 +39,7 @@ namespace Dice_Tool.ViewModel
             {
                 currentBet = value;
                 OnPropertyChanged("CurrentBet");
+                _calculatePayout(null);
             }
         }
 
@@ -53,6 +54,7 @@ namespace Dice_Tool.ViewModel
             {
                betMultiplier = value;
                 OnPropertyChanged("BetMultiplier");
+                _calculatePayout(null);
             }
         }
 
@@ -86,9 +88,9 @@ namespace Dice_Tool.ViewModel
         }
 
         private void _copyPayout(object obj)
-        {
-            CurrentBet = CurrentPayout;
-            CurrentPayout = 0;
+        { 
+                    
+            CurrentBet = CurrentPayout;           
         }
 
         private bool _canCalculatePayout(object arg)
