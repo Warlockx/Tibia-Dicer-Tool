@@ -42,10 +42,6 @@ namespace Dice_Tool.ViewModel
             }
         }
 
-        public ICommand CalculatePayout { get; set; }
-        public ICommand CopyPayout { get; set; }
-        public ICommand Clear { get; set; }
-
         public int BetMultiplier
         {
             get
@@ -55,10 +51,16 @@ namespace Dice_Tool.ViewModel
 
             set
             {
-                betMultiplier = value;
+               betMultiplier = value;
                 OnPropertyChanged("BetMultiplier");
             }
         }
+
+        public ICommand CalculatePayout { get; set; }
+        public ICommand CopyPayout { get; set; }
+        public ICommand Clear { get; set; }
+
+     
 
         public MainWindowViewModel()
         {
@@ -91,7 +93,7 @@ namespace Dice_Tool.ViewModel
 
         private bool _canCalculatePayout(object arg)
         {
-            return CurrentBet > 0;                
+            return CurrentBet > 0 && betMultiplier >= 1;                
         }
 
         private void _calculatePayout(object obj)
