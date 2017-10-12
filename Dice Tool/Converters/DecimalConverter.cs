@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Data;
 
-namespace Dice_Tool
+namespace Dice_Tool.Converters
 {
     public class DecimalConverter : IValueConverter
     {
@@ -19,8 +19,15 @@ namespace Dice_Tool
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string currentValue = value.ToString();         
-            return Double.Parse(currentValue.Substring(0,currentValue.Length-3).Replace(',','.'));
+            string valueString = value.ToString();            
+
+            double currentValue = 0;
+            Double.TryParse(valueString.Substring(0, valueString.Length - 3).Replace(',', '.'), out currentValue);
+
+            return currentValue;
+
+        
+         
         }
     }
 }

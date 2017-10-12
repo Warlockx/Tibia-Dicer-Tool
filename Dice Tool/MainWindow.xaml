@@ -5,13 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Dice_Tool"    
         xmlns:viewModel="clr-namespace:Dice_Tool.ViewModel"
+        xmlns:converters="clr-namespace:Dice_Tool.Converters"
         mc:Ignorable="d"
         Title="Dice Calculator" Height="303.533" Width="263.437" Topmost="True">
     <Window.DataContext>
         <viewModel:MainWindowViewModel/>
     </Window.DataContext>
     <Window.Resources>
-        <local:DecimalConverter x:Key="DecimalConverter"/>
+        <converters:DecimalConverter x:Key="DecimalConverter"/>
+        <converters:PercentageConverter x:Key="PercentageConverter"/>
         <Style TargetType="{x:Type TextBox}" x:Key="NumberBoxes" >
             <Setter Property="TextAlignment" Value="Right"/>
             <Setter Property="BorderBrush" Value="LightGray"/>
@@ -24,21 +26,8 @@
             <Setter Property="TextAlignment" Value="Right"/>
             <Setter Property="BorderBrush" Value="LightGray"/>
             <Setter Property="FontSize" Value="20"/>
-            <Setter Property="Margin" Value="0,2,0,2"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type TextBox}">
-                        <Grid Background="{TemplateBinding Background}" >
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="auto"/>
-                            </Grid.ColumnDefinitions>
-                            <TextBox VerticalAlignment="Top" Padding="0,-3,0,0" BorderThickness="1,1,0,1"  Text="{Binding BetMultiplier, UpdateSourceTrigger=PropertyChanged}"/>
-                            <TextBox VerticalAlignment="Top" Padding="0,-3,0,0" BorderThickness="0,1,1,1" IsReadOnly="True"  Text="%" Grid.Column="1" HorizontalAlignment="Right"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="2"/>
         </Style>
     </Window.Resources>
     <Grid>
@@ -66,7 +55,7 @@
         <TextBox Text="{Binding CurrentBet, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource NumberBoxes}"/>
 
         <Label Content="Percentage" Grid.Column="2" Grid.Row="5"/>
-        <TextBox Grid.Column="3" Grid.Row="5" Style="{StaticResource PercentageBox}"/>
+        <TextBox  Text="{Binding BetMultiplier, Converter={StaticResource PercentageConverter}}" Grid.Column="3" Grid.Row="5" Style="{StaticResource PercentageBox}"/>
 
         <Button Margin="1" Content="Win" Grid.Column="1" Grid.Row="6" Command="{Binding CalculatePayout}"/>
         <Button Margin="1" Content="Copy" Grid.Column="2" Grid.Row="6"  Command="{Binding CopyPayout}" />
