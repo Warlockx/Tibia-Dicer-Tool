@@ -71,7 +71,7 @@ namespace Dice_Tool.ViewModel
 
         private bool _canClear(object arg)
         {
-            return CurrentPayout > 0 && CurrentBet > 0;
+            return CurrentPayout > 0 || CurrentBet > 0;
         }
 
         private void _clear(object obj)
@@ -97,8 +97,8 @@ namespace Dice_Tool.ViewModel
         }
 
         private void _calculatePayout(object obj)
-        {           
-            CurrentPayout = CurrentBet * ((double)betMultiplier / 100);
+        {        
+            CurrentPayout = Math.Round(CurrentBet * ((double)betMultiplier / 100), 2);                    
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

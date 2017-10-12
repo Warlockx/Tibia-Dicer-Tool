@@ -11,15 +11,16 @@ namespace Dice_Tool
     {
         object IValueConverter.Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            double currentValue = (double)value;
-            return currentValue > 1000 ? currentValue / 100: value;
-            
+            double currentValue = (double)value/1000;          
+                
+            return $"{currentValue.ToString("N3")} gp";            
         }
 
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value;
+            string currentValue = value.ToString();         
+            return Double.Parse(currentValue.Substring(0,currentValue.Length-3).Replace(',','.'));
         }
     }
 }
