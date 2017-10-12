@@ -3,10 +3,73 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Dice_Tool"
+        xmlns:local="clr-namespace:Dice_Tool"    
+        xmlns:viewModel="clr-namespace:Dice_Tool.ViewModel"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Dice Calculator" Height="303.533" Width="263.437" Topmost="True">
+    <Window.DataContext>
+        <viewModel:MainWindowViewModel/>
+    </Window.DataContext>
+    <Window.Resources>
+        <local:DecimalConverter x:Key="DecimalConverter"/>
+        <Style TargetType="{x:Type TextBox}" x:Key="NumberBoxes" >
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Padding" Value="0,3,3,0"/>
+            <Setter Property="Margin" Value="0,0,0,4"/>
+        </Style>
+        <Style TargetType="{x:Type TextBox}" x:Key="PercentageBox" >
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="0,2,0,2"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Grid Background="{TemplateBinding Background}" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox VerticalAlignment="Top" Padding="0,-3,0,0" BorderThickness="1,1,0,1"  Text="{TemplateBinding Text}"/>
+                            <TextBox VerticalAlignment="Top" Padding="0,-3,0,0" BorderThickness="0,1,1,1" IsReadOnly="True"  Text="%" Grid.Column="1" HorizontalAlignment="Right"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.RowDefinitions>
+            <RowDefinition Height="7*"/>
+            <RowDefinition Height="28*"/>
+            <RowDefinition Height="43*"/>
+            <RowDefinition Height="26*"/>
+            <RowDefinition Height="39*"/>
+            <RowDefinition Height="32*"/>
+            <RowDefinition Height="34*"/>
+            <RowDefinition Height="13*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="9*"/>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="69*"/>
+            <ColumnDefinition Width="9*"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Content="Payout" Grid.Column="1" Grid.Row="1"/>
+        <TextBox IsReadOnly="True" Text="{Binding CurrentPayout}" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="3" Style="{StaticResource NumberBoxes}"/>
+        <Label Content="Bet" Grid.Column="1" Grid.Row="3"/>
+        <TextBox Text="{Binding CurrentBet, UpdateSourceTrigger=PropertyChanged}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="3" Style="{StaticResource NumberBoxes}"/>
+
+        <Label Content="Percentage" Grid.Column="2" Grid.Row="5"/>
+        <TextBox Text="{Binding BetMultiplier}" Grid.Column="3" Grid.Row="5" Style="{StaticResource PercentageBox}"/>
+
+        <Button Margin="1" Content="Win" Grid.Column="1" Grid.Row="6" Command="{Binding CalculatePayout}"/>
+        <Button Margin="1" Content="Copy" Grid.Column="2" Grid.Row="6"  Command="{Binding CopyPayout}" />
+        <Button Margin="1" Content="Clear" Grid.Column="3" Grid.Row="6" Command="{Binding Clear}"/>
     </Grid>
 </Window>
