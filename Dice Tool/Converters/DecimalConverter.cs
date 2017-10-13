@@ -22,6 +22,10 @@ namespace Dice_Tool.Converters
             string valueString = value.ToString();            
 
             double currentValue = 0;
+
+            if (valueString.Length < 3)
+                return currentValue;
+
             Double.TryParse(valueString.Substring(0, valueString.Length - 3).Replace(',', '.'), out currentValue);
 
             return currentValue;

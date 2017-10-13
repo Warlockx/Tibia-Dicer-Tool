@@ -19,6 +19,9 @@ namespace Dice_Tool.Converters
             string percentageString = (string)value;
             int percentage = 180;
 
+            if (percentageString.Length < 2)
+                return percentage;
+
             int.TryParse(percentageString.Substring(0, percentageString.Length - 2),out percentage);
 
             return percentage == 0 ? 180 : percentage;
