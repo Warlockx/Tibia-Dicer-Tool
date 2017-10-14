@@ -16,13 +16,13 @@ namespace Dice_Tool.Converters
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string percentageString = (string)value;
+            string percentageString = value.ToString().Replace(" %","");
             int percentage = 180;
 
             if (percentageString.Length < 2)
                 return percentage;
 
-            int.TryParse(percentageString.Substring(0, percentageString.Length - 2),out percentage);
+            int.TryParse(percentageString,out percentage);
 
             return percentage == 0 ? 180 : percentage;
         }

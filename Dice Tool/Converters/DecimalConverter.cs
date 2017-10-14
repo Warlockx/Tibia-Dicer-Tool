@@ -19,14 +19,14 @@ namespace Dice_Tool.Converters
 
         object IValueConverter.ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            string valueString = value.ToString();            
+            string valueString = value.ToString().Replace(" gp", "").Replace(',', '.');            
 
             double currentValue = 0;
 
             if (valueString.Length < 3)
                 return currentValue;
 
-            Double.TryParse(valueString.Substring(0, valueString.Length - 3).Replace(',', '.'), out currentValue);
+            Double.TryParse(valueString, out currentValue);
 
             return currentValue;
 
