@@ -56,6 +56,7 @@
         <Label Content="Bet" Grid.Column="1" Grid.Row="3"/>
         <TextBox Text="{Binding CurrentBet, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource DecimalConverter}}" Grid.Column="1" Grid.Row="4" Grid.ColumnSpan="5" Style="{StaticResource NumberBoxes}"/>
 
+        <Button Content="{Binding GameName}" Grid.Column="1" Grid.Row="5" Margin="0,0,0,2" Command="{Binding ChangeGame}"/>
         <Label VerticalContentAlignment="Center" Content="Percentage" Grid.Column="2" Grid.Row="5" Grid.ColumnSpan="3"/>
         <TextBox VerticalAlignment="Center" Text="{Binding BetMultiplier, Converter={StaticResource PercentageConverter},UpdateSourceTrigger=PropertyChanged}" Grid.Column="5" Grid.Row="5" Style="{StaticResource PercentageBox}"/>
 
